@@ -1,5 +1,5 @@
-scikit-learn
-pandas
+scikit-learn==1.6.1
+pandas==2.2.3
 matplotlib
-skops
+skops==0.13.0
 black
