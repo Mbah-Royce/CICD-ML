@@ -29,8 +29,8 @@ hf-login:
 	hf auth login --token $(HF) --add-to-git-credential
 
 push-hub:
-	hf upload Mbah-Royce/CICD-Drug-Classfication ./App --repo-type=space --commit-message="Sync App files"
-	hf upload Mbah-Royce/CICD-Drug-Classfication ./Model /Model --repo-type=space --commit-message="Sync Model"
-	hf upload Mbah-Royce/CICD-Drug-Classfication ./Results /Metrics --repo-type=space --commit-message="Sync Model"
+	hf upload Mbah-Royce/Drug-classification ./App --repo-type=space --commit-message="Sync App files"
+	hf upload Mbah-Royce/Drug-classification ./Model /Model --repo-type=space --commit-message="Sync Model"
+	hf upload Mbah-Royce/Drug-classification ./Results /Metrics --repo-type=space --commit-message="Sync Model"
 
 deploy: hf-login push-hub
