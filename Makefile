@@ -33,5 +33,4 @@ push-hub:
 	huggingface-cli upload Mbah-Royce/CICD-Drug-Classfication ./Model /Model --repo-type=space --commit-message="Sync Model"
 	huggingface-cli upload Mbah-Royce/CICD-Drug-Classfication ./Results /Metrics --repo-type=space --commit-message="Sync Model"
 
-deploy: 
-	hf-login push-hub
+deploy: hf-login push-hub
