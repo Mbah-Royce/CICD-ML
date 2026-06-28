@@ -4,7 +4,12 @@ from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OrdinalEncoder, StandardScaler
-from sklearn.metrics import accuracy_score, f1_score, ConfusionMatrixDisplay, confusion_matrix
+from sklearn.metrics import (
+    accuracy_score,
+    f1_score,
+    ConfusionMatrixDisplay,
+    confusion_matrix,
+)
 import matplotlib.pyplot as plt
 import skops.io as sio
 from sklearn.ensemble import RandomForestClassifier
@@ -17,24 +22,26 @@ drug_df.head(3)
 X = drug_df.drop("Drug", axis=1).values
 y = drug_df.Drug.values
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.3, random_state=42
+)
 
 # sklearn pipeline
-cat_col = [1,2,3]
-num_col = [0,4]
+cat_col = [1, 2, 3]
+num_col = [0, 4]
 
 transform = ColumnTransformer(
     [
         ("encoder", OrdinalEncoder(), cat_col),
         ("num_imputer", SimpleImputer(strategy="median"), num_col),
-        ("num_scaler", StandardScaler(), num_col)
+        ("num_scaler", StandardScaler(), num_col),
     ]
 )
 
 pipe = Pipeline(
-    steps = [
+    steps=[
         ("preprocessing", transform),
-        ("model", RandomForestClassifier(n_estimators=100,random_state=42))
+        ("model", RandomForestClassifier(n_estimators=100, random_state=42)),
     ]
 )
 pipe.fit(X_train, y_train)
@@ -44,7 +51,7 @@ predictions = pipe.predict(X_test)
 accuracy = accuracy_score(y_test, predictions)
 f1 = f1_score(y_test, predictions, average="macro")
 
-print("Accuarcy", str(round(accuracy, 2) * 100) + "%", "F1:", round(f1,2))
+print("Accuarcy", str(round(accuracy, 2) * 100) + "%", "F1:", round(f1, 2))
 
 with open("Results/metrics.txt", "w") as outfile:
     outfile.write(f"\nAccuracy = {round(accuracy, 2)}, F1 Score = {round(f1, 2)}.")
@@ -55,10 +62,4 @@ disp.plot()
 plt.savefig("Results/model_results.png", dpi=120)
 
 # Saving Model
-sio.dump(pipe,"Model/drug_pipeline.skops")
-
-
-
-
-
-
+sio.dump(pipe, "Model/drug_pipeline.skops")
