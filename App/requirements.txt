@@ -1,2 +1,2 @@
-scikit-learn
-skops
+scikit-learn==1.6.1
+skops==0.13.0
